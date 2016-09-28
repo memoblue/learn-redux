@@ -6,17 +6,25 @@ const Comments = React.createClass({
       <div className="comment" key={idx}>
         <p>
           <strong>{comment.user}</strong> {comment.text}
-            <button className="remove-comment">&times;</button>
+            {/* bind(null) to pass args without running function on load */}
+            <button className="remove-comment" onClick={this.handleClick.bind(null, idx)}>&times;</button>
         </p>
       </div>
     );
   },
   handleSubmit(e) {
     e.preventDefault();
-    const { postId } = this.props.params;
+    const { postId } = this.props.params; // params is from router
     const author = this.refs.author.value;
     const comment = this.refs.comment.value;
     this.props.addComment(postId, author, comment);
+    this.refs.commentForm.reset();
+  },
+  handleClick(idx) {
+    const { postId } = this.props.params;
+    const commentIndex = idx;
+    console.log(postId, commentIndex);
+    this.props.removeComment(postId, commentIndex);
   },
   render() {
     return(
