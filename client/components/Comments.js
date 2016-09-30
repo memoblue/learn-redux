@@ -23,7 +23,6 @@ const Comments = React.createClass({
   handleClick(idx) {
     const { postId } = this.props.params;
     const commentIndex = idx;
-    console.log(postId, commentIndex);
     this.props.removeComment(postId, commentIndex);
   },
   render() {
